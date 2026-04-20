@@ -4,7 +4,7 @@ import os
 from rag.document_manager import DocumentManager
 from streamlit_oauth import OAuth2Component
 import jwt
-import json
+os.environ["HF_HUB_DISABLE_SYMLINKS"] = "1"
 
 
 # ─── Configuration ───

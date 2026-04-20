@@ -1,10 +1,16 @@
 from sentence_transformers import SentenceTransformer
+import streamlit as st
 
 # load the embedding model
 # all-MiniLM-L6-v2 is small, fast, and works great for semantic search
 # it converts any text into 384 numbers
 # this line runs only once when the file is imported
-model = SentenceTransformer('all-MiniLM-L6-v2')
+
+@st.cache_resource
+def get_embeddings_model():
+    return SentenceTransformer('all-MiniLM-L6-v2')
+
+model = get_embeddings_model()
 
 
 def get_embeddings(texts: list[str]):
