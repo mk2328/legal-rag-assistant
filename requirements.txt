@@ -8,4 +8,4 @@ langchain
 langchain-community
 numpy
 PyJWT
-streamlit-oauth
+streamlit_oauth
