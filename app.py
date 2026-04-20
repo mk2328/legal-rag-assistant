@@ -29,18 +29,7 @@ def set_custom_css():
             background-color: #0a0a0f !important;
         }
                 
-        /* Google sign in button styling */
-        [data-testid="stButton"] > button[kind="googleSignIn"],
-        div[class*="stButton"] > button {
-            background: white !important;
-            color: #1a1a1a !important;
-            border: 1px solid #e0e0e0 !important;
-            border-radius: 8px !important;
-            font-weight: 500 !important;
-            font-size: 0.95rem !important;
-            padding: 10px 24px !important;
-            width: 100% !important;
-        }
+
 
         /* ── Sidebar ── */
         [data-testid="stSidebar"] {
@@ -567,6 +556,10 @@ def set_custom_css():
             width: 100% !important;
         }
         
+    
+        div[data-testid="stVerticalBlockBorderWrapper"] {
+            margin-top: 12px !important;
+        }
 
     </style>
     """, unsafe_allow_html=True)
@@ -638,7 +631,10 @@ if "token" not in st.session_state:
             redirect_uri=redirect_uri,
             scope="openid email profile",
             icon="google",
+            use_container_width=True, 
         )
+
+        
 
         st.markdown("""
         <p style='text-align:center; color:#444466; font-size:0.75rem; margin-top:16px'>
