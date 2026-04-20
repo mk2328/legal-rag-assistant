@@ -630,11 +630,14 @@ if "token" not in st.session_state:
         """, unsafe_allow_html=True)
 
 
+        # get redirect uri automatically based on environment
+        redirect_uri = get_secret("GOOGLE_REDIRECT_URI", "http://localhost:8501")
+
         result = oauth2.authorize_button(
-        name="Sign in with Google",
-        redirect_uri="http://localhost:8501",
-        scope="openid email profile",
-        icon="google",
+            name="Sign in with Google",
+            redirect_uri=redirect_uri,
+            scope="openid email profile",
+            icon="google",
         )
 
         st.markdown("""
