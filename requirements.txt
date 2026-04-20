@@ -9,3 +9,5 @@ langchain-community
 numpy
 PyJWT
 streamlit_oauth
+torch
+torchvision
