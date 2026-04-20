@@ -8,11 +8,15 @@ from streamlit.errors import StreamlitSecretNotFoundError
 load_dotenv()
 
 def get_groq_api_key():
-    # .get() use karna safer hai taake agar key na mile toh error na de
+    # try streamlit secrets first (Streamlit Cloud)
     try:
-        return st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
-    except (StreamlitSecretNotFoundError, Exception):
-        return os.getenv("GROQ_API_KEY")
+        val = st.secrets.get("GROQ_API_KEY")
+        if val:
+            return val
+    except:
+        pass
+    # fall back to .env (local development)
+    return os.getenv("GROQ_API_KEY")
 
 def ask_llm(question: str, context_chunks: list[str]) -> str:
     # CLIENT KO YAHAN INITIALIZE KAREIN (Lazy Loading)
@@ -26,9 +30,16 @@ def ask_llm(question: str, context_chunks: list[str]) -> str:
     
     prompt = f"""You are a legal document assistant.
     Answer the question using ONLY the context provided below.
-    ... (rest of your prompt) ...
-    CONTEXT: {context}
+    - Give complete answers, do not leave out exceptions or conditions
+    - If there is an "unless" or "except" clause, always mention it
+    - Use simple plain English, not legal jargon
+    If the answer is not in the context, say "I could not find this in the document."
+
+    CONTEXT:
+    {context}
+
     QUESTION: {question}
+
     ANSWER:"""
     
     response = client.chat.completions.create(

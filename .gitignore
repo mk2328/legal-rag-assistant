@@ -32,3 +32,5 @@ Thumbs.db
 
 # Google OAuth credentials
 google_credentials.json
+
+.streamlit/secrets.toml

@@ -28,6 +28,19 @@ def set_custom_css():
         .stApp {
             background-color: #0a0a0f !important;
         }
+                
+        /* Google sign in button styling */
+        [data-testid="stButton"] > button[kind="googleSignIn"],
+        div[class*="stButton"] > button {
+            background: white !important;
+            color: #1a1a1a !important;
+            border: 1px solid #e0e0e0 !important;
+            border-radius: 8px !important;
+            font-weight: 500 !important;
+            font-size: 0.95rem !important;
+            padding: 10px 24px !important;
+            width: 100% !important;
+        }
 
         /* ── Sidebar ── */
         [data-testid="stSidebar"] {
@@ -564,8 +577,14 @@ set_custom_css()
 
 # ─── Helper functions to get credentials from .env or secrets ───
 def get_secret(key: str, default: str = "") -> str:
-    if key in st.secrets:
-        return st.secrets[key]
+    # try streamlit secrets first (Streamlit Cloud)
+    try:
+        val = st.secrets.get(key)
+        if val:
+            return val
+    except:
+        pass
+    # fall back to .env (local development)
     return os.getenv(key, default)
 
 client_id = get_secret("GOOGLE_CLIENT_ID")
