@@ -1,0 +1,10 @@
+groq
+faiss-cpu
+sentence-transformers
+pymupdf
+python-dotenv
+langchain
+langchain-community
+streamlit
+numpy
+streamlit-google-auth
