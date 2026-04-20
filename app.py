@@ -569,12 +569,12 @@ set_custom_css()
 
 # ─── Helper functions to get credentials from .env or secrets ───
 def get_secret(key: str, default: str = "") -> str:
-    # first try streamlit secrets (used on Streamlit Cloud)
-    try:
+    if key in st.secrets:
         return st.secrets[key]
-    except:
-        # fall back to .env file (used locally)
-        return os.getenv(key, default)
+    return os.getenv(key, default)
+
+client_id = get_secret("GOOGLE_CLIENT_ID")
+client_secret = get_secret("GOOGLE_CLIENT_SECRET")
 
 # ─── Google Auth Setup ───
 oauth2 = OAuth2Component(

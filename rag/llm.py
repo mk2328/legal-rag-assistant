@@ -7,7 +7,6 @@ import streamlit as st
 load_dotenv()
 
 def get_groq_api_key():
-    # pehle streamlit secrets try karo
     try:
         return st.secrets["GROQ_API_KEY"]
     except:
