@@ -6,11 +6,6 @@ from streamlit_oauth import OAuth2Component
 import jwt
 import json
 
-with open("google_credentials.json") as f:
-    data = json.load(f)
-    # Google credentials.json mein aam taur par 'web' key hoti hai
-    client_id = data["web"]["client_id"]
-    client_secret = data["web"]["client_secret"]
 
 # ─── Configuration ───
 st.set_page_config(
